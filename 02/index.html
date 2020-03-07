@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<body>
+    <div id="root">
+        {{ title }}
+        <button v-for="item in arr">{{ item }}</button>
+        <div>{{ num>100?'对了！':'错了！' }}</div>
+        <p>-----------双向绑定------------</p>
+        <input type="text" v-model="title">
+        <input type="text" v-model="title">
+        <h1 v-model="aa">{{ aa }}</h1>
+        <p>-----------双向绑定原理--------</p>
+        <h1 id="aa"></h1>
+        <p>-----------v-for---------------</p>
+        <ul>
+            <li v-for="(item,index) in arr2">{{ index }}----{{ item }}</li>
+        </ul>
+        <ul>
+            <li v-for="(value,key) in obj">{{ value }}----{{ key }}</li>
+        </ul>
+        <ul>
+            <li v-for="item in string">{{ item }}</li>
+        </ul>
+        <ul>
+            <li v-for="item in number">{{ item }}</li>
+        </ul>
+        <ul>
+            <li v-for="(value,key) in arr3">
+                {{ value }}----{{ key }}
+                <ul>
+                    <li v-for="(value2,key2) in value">{{ value2 }}----{{ key2 }}</li>
+                </ul>
+            </li>
+        </ul>
+        <p>--------------v-on-------------------</p>
+        <button v-on:click="clickHandle">三生三世</button>
+        <p>----------------show-----------------</p>
+        <button @click="toggle">{{ kk }}</button>
+        <div style="background-color: red; width: 100px; height: 100px;" v-show="ff"></div>
+        <p>----------------v-html-------------------</p>
+        v-html 和差值表达式不同的地方是 v-html 可以动态的向某个元素中用字符串的方式插入html元素
+        <div v-html="html"></div>
+        <p>----------------v-text-------------------</p>
+        <div v-text="text"></div>
+    </div>
+    <script>
+        var vm = new Vue({
+            //el挂载当前实例在id为root的div上
+            el: '#root',
+            //提供数据
+            data: {
+                title: "aaaaa",
+                arr: ["按钮1", "按钮2", "按钮3"],
+                num: 120,
+                aa: 'jfsjfk',
+                arr2: ["按钮1", "按钮2", "按钮3", "aa", "bb", "cc", "dd"],
+                obj: {
+                    aa: 'ddaa',
+                    dd: 'ff',
+                    ddg: 'ffff'
+                },
+                string: 'afsfsafsffasf',
+                number: 12,
+                arr3: [3, 'ffff', {
+                        aa: 'fjjf',
+                        bb: 'fjks',
+                        jf: 'jfd'
+                    },
+                    [12, 34, 'fd'], {
+                        dfk: '23',
+                        jfj: 'jfj'
+                    },
+                    234, 'fjdkf'
+                ],
+                ff: true,
+                kk: '隐藏',
+                html: '<h1>hfsfsj</h1>',
+                text: 'jfkdsfjksjksf'
+            },
+            methods: {
+                clickHandle() {
+                    console.log('我点了')
+                },
+                toggle() {
+                    this.ff = !this.ff;
+                    this.kk = this.ff ? '隐藏' : '显示';
+                }
+            }
+        });
+        var aa = document.querySelector('#aa');
+        var obj = {
+            _aa: "aa",
+            get aa() {
+                console.log('访问aa');
+                return obj._aa;
+            },
+            set aa(val) {
+                console.log('修改aa')
+                obj._aa = val;
+                aa.innerText = val;
+            }
+        }
+        aa.innerText = obj.aa;
+    </script>
+</body>
+
+</html>

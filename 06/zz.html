@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<body>
+    <div id="app">
+        <my-components>
+            <template slot="a1">你来了</template>
+            <h1>你好！</h1>
+            <span>hello</span>  
+        </my-components>
+    </div>
+    <script>
+        const vm = new Vue({
+            el:'#app',
+            components:{
+                myComponents:{
+                    methods:{
+                        fn(){
+                            console.log(this)
+                        }
+                    },
+                    template:`
+                    <div @click="fn()">
+                        <div class="header">
+                            <slot name="a1" v-if="$slots.a1"/>
+                            <h1 v-else>Hi</h1>
+                        </div>
+                        <hr>
+                        <hr>
+                        <div class="content"><slot/></div>
+                    </div>
+                    `
+                }
+            }
+            
+        })
+    </script>
+</body>
+</html>

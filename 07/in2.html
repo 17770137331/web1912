@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <div id="app"></div>
+    <script>
+        //全局过滤器
+        Vue.filter("UperCase",(value)=>{
+            return value.toUpperCase();
+        })
+
+        Vue.filter("Number",(value)=>{
+            return value.replace(/[0-9]/g,"")
+        })
+        //注意：使用过滤器是可以给过滤器传递参数
+        //过滤器收到的第一个参数是要过滤的value值
+        //第二个参数开始 就是自定义传递的参数了
+        //也可以给个默认值
+        Vue.filter("can",(value,a=100)=>{
+            return value+a
+        })
+        const vm = new Vue({
+            el:'#app',
+            data:{
+                title: "hello world 1223"
+            },
+            //局部过滤器
+            //局部过滤器只能在当前组件使用
+            filters:{
+                CamelCase(value){
+                    console.log(value)
+                    var arr = value.split(" ");
+                    console.log(arr)
+                    return arr[2]
+                }
+            },
+            //{{ title | UperCase }}这样来使用过滤器
+            template: `
+                <div>
+                    {{ title | UperCase | Number | can("你好呀!") | CamelCase}}
+                </div>
+            `
+        })
+    </script>
+</body>
+</html>

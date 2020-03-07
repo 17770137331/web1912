@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<style>
+    /* li {
+        border: 1px solid initial;
+    } */
+</style>
+
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                aa: "",
+                bb: ['112121@qq.com', 'dds@qq.com', 'dsc@qq.com', '22', '1235', '11125', '11111'],
+                cc: [],
+                number: 0
+            },
+            methods: {
+                run(item, index) {
+                    this.aa = item
+                    vm.$nextTick(() => {
+                        this.cc.splice(0, 1)
+                    })
+                },
+                run2() {
+                    if (event.keyCode == 13) {
+                        this.aa = this.cc[this.number]
+                        vm.$nextTick(() => { //是一个异步的方法等dom更新完毕之后才会执行这个方法
+                            this.cc.splice(0, 1)
+                        })
+                    }
+                    if (event.keyCode == 40) {
+                        if (this.number < this.cc.length - 1) {
+                            this.number++
+                        }
+                    } else {
+                        if (this.number > 0) {
+                            this.number--
+                        }
+                    }
+                }
+            },
+            template: `
+            <div>
+                <input type="text" v-model="aa" @keydown.up.down.enter.prevent="run2">
+                <ul style="list-style:none; margin:0; padding:0;">
+                    <li v-for="(item,index) in cc" 
+                    @click="run(item,index)"
+                    :style="{border:'1px solid rgb(238, 238, 238)', 
+                    width:'160.8px',
+                    background:index==number?'red':'none'}"
+                    >{{ item }}</li>
+                </ul>
+            </div>
+            `,
+            watch: {
+                aa() {
+                    var re = new RegExp("^" + this.aa);
+                    this.cc = this.bb.filter((value) => {
+                        if (re.exec(value) && this.aa != '') {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

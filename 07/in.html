@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 
+        混入主要是用来提高可维护性的
+     -->
+     <div class="" id="app"></div>
+     <script>
+         //全局混入
+         Vue.mixin({
+             //可以混入变量、方法、watch（监听）、计算属性、钩子函数
+             data(){
+                 return{
+                     aa:'aa'
+                 }
+             },
+             methods: {},
+             watch: {},
+             computed: {},
+             beforeCreate(){},
+             created(){},
+             beforeMount(){},
+             mounted(){},
+             beforeUpdate(){},
+             update(){},
+             beforeDestroy(){},
+             destroyed(){},
+         })
+         //局部组件
+         const myMixin = {
+             methods: {
+                 bb(){
+                     console.log('123456789')
+                 }
+             }
+         }
+
+
+         Vue.component("Test",{
+             //局部组件混入
+             mixins:[myMixin],
+             //全局组件混入不需要任何介质直接使用就行
+             template:`
+             <div :class="[aa+'-test']" @click="bb">
+                <h1>{{ aa }}Test</h1>
+             </div>
+             `
+         })
+         Vue.component("Card",{
+             template:`
+             <div :class="[aa+'-card']">
+                <h1>{{ aa }}Card</h1>
+             </div>
+             `
+         })
+         const vm = new Vue({
+             //局部混入
+             //mixins
+             el: '#app',
+             template: `
+             <div>
+                <Test/>
+                <Card/>
+             </div>
+             `
+         })
+     </script>
+</body>
+</html>

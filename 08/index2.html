@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+</style>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <div id="app"></div>
+
+    <script>
+
+        //全局指令
+        //在模板中使用指令时用v-listener
+        Vue.directive("focus", {
+            //可以接收el,binding,vnode,oldVnode四个形参
+            //1.el 指令绑定的目标对象
+            //2.binding指令绑定的信息以及绑定的值
+            //  (1)arg指令冒号后面的参数 指令后面只能写一个参数(就是监听事件的名称)
+            //      v-listener:"aa" 在这里listener是指令名称 aa是参数 不能有多个参数
+            //  (2)expression表达式 指令引号中的原始名称 字符串形式的
+            //  (3)name指令的名称
+            //  (4)rawName指令的使用名称
+            //  (5)value指令所绑定的值
+            //3.vnode指令所绑定的元素新的虚拟dom
+            //4.oldVnode指令所绑定的元素的旧的虚拟dom
+            //在指令和元素绑定时触发
+            bind(el, binding, vnode, oldVnode) {
+                console.log("元素以绑定")
+                //能获取到el
+                console.log("bind", el)
+                //在元素没有被添加进dom前无法获取焦点
+                //在元素没有添加进dom之前无法设置类似focue这种获取焦点的行为
+                //但是可以设置background这种样式和事件
+                // el.focus()
+                console.log(binding)
+            },
+            //在指令所绑定的元素被插入进dom是触发
+            inserted(el, binding, vnode, oldVnode) {
+                console.log("指定元素被添加进dom")
+                //能获取到el
+                console.log("inserted", el)
+                //如果要对元素添加一些dom行为需要等到inserted钩子的时候在添加否则不生效
+                el.focus();
+            },
+            //在指令所绑定上下文中更新时触发
+            update(el, binding, vnode, oldVnode) {
+                //不能获取到el
+                //指令所在的模板更新就会触发
+                //注意：只要有一个元素绑定了这个指令就行
+                console.log("update", el)
+
+            },
+            componentUpdated() {
+
+            },
+            unbind() {
+                //指令所在的元素（组件）在销毁是调用
+                //取消监听事件
+                //主要是做底层操作
+            }
+        })
+
+        Vue.directive("listener",{
+            bind(el, binding, vnode, oldVnode){
+                console.log("listener")
+                console.log(binding)
+                el.addEventListener(binding.arg,function(){
+                    binding.value()
+                })
+            },
+            inserted(el, binding, vnode, oldVnode){
+
+            },
+            update(el, binding, vnode, oldVnode){
+
+            }
+        })
+
+
+        Vue.directive("sync", {
+            bind(el, binding, vnode, oldVnode) {
+                console.log("sync")
+                console.log(binding)
+                el.value = binding.value;
+                console.log(vnode)
+                console.log(oldVnode)
+                el.addEventListener("input", () => {
+                    vnode.context[binding.expression] = el.value
+                })
+            },
+            inserted(el, binding, vnode, oldVnode) {
+                console.log(vnode)
+                console.log(oldVnode)
+            },
+            update(el, binding, vnode, oldVnode) {
+                console.log("sync update")
+                console.log(vnode)
+                console.log(oldVnode)
+                el.value = binding.value
+            },
+            //指令所在组件的VNode及其子VNode全部更新后调用
+            componentUpdated() {
+
+            },
+            unbind() {
+                //指令所在的元素（组件）在销毁是调用
+                //取消监听事件
+                //主要是做底层操作
+            }
+        })
+
+
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                aa: "",
+                bb: "123"
+            },
+            methods: {
+                fn() {
+                    alert("111111112")
+                }
+            },
+            template: `
+            <div class="app">
+                
+                <input type="text" v-model="bb" style="background:#eacbcb;"/>
+                <input v-sync="bb"/>
+                <input v-focus/>
+                <input v-model="aa"/>
+                <button v-listener:click="fn">按钮</button>
+            </div>
+            `
+        })
+    </script>
+</body>
+
+</html>

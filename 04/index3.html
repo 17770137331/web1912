@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        Vue.component("AutoComplateEmail", {
+            data() {
+                return {
+                    //这里写成员
+                    value: "",
+                    prefixs: ['@qq.com', "@163.com", "@gmail.com", "@126.com"]
+                }
+            },
+            computed: {
+                list() {
+                    if (!this.value) return [];
+                    return this.prefixs.map((value) => {
+                        return this.value + value
+                    })
+                }
+            },
+            //也是只能有一个根元素
+            template: `
+            <div>
+                <input type="text" v-model="value">
+                <ul>
+                    <li v-for="item in list">{{ item }}</li>
+                </ul>
+            </div>
+            `
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+
+            },
+            watch: {
+
+            },
+            computed: {
+                list() {
+                    if (!this.value) return [];
+                    return this.prefixs.map((value) => {
+                        return this.value + value
+                    })
+                }
+            },
+            template: `
+                <div class="app">
+                    <AutoComplateEmail></AutoComplateEmail>
+                    <AutoComplateEmail></AutoComplateEmail>
+                    <AutoComplateEmail></AutoComplateEmail>
+                </div>
+            `
+
+        })
+    </script>
+</body>
+
+</html>

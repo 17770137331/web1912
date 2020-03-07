@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<body>
+    <div id="app">
+        <h1>jfksdjfk</h1>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                title: "发大家看了"
+            },
+            methods: {
+
+            },
+            //当你的实例选项中如果存在template选项 
+            //会用模板里的字符去替换el选项的绑定元素
+            //只允许有一个根元素（就是``里面不能写成`<div></div><div></div>`不能这样有两个div）也不能在div外面写东西
+            template: `<div><h1>{{ title }}</h1>
+                <input type="text" v-model="title">
+            </div>
+            `,
+            //watch 是用于监听data选项里的成员什么时候发生改变的
+            //你想要监听data里的那个成员 就在下面写成员名称的同名函数
+            //同时会给函数中传递两个参数 一个是变化后的新值 一个是变化前的值
+            watch: {
+                title(a, b) {
+                    console.log(`新值：${a} 老值：${b}`)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

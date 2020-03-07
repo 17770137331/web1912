@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<body>
+    <div id="root">
+        <span>乘法口诀</span>
+        <br>
+        <div v-for="item in number">
+            <span v-for="item2 in number2" v-if="item2 <= item">
+                {{ item2 }}*{{ item }}={{ item*item2 }} &nbsp;&nbsp;&nbsp;
+            </span>
+        </div>
+        <p>聊天</p>
+        <div style="width: 300px; height: 200px; background-color: red; overflow: auto;">
+
+            <p v-for="item in arr" :style="{textAlign: item.name==='yj' ?'right':'left'}">
+                <span>{{ item.name }}</span>
+                <span>{{ item.nr }}</span>
+                <span>{{ item.date }}</span>
+            </p>
+
+        </div>
+        <input type="text" v-model="nr"><button @click="clickHandle">发送</button>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                number: 9,
+                number2: 9,
+                arr: [],
+                nr: ""
+            },
+            methods: {
+                clickHandle(e) {
+                    this.arr.push({
+                        name: 'yj',
+                        nr: this.nr,
+                        date: new Date().toLocaleDateString()
+                    })
+                    this.nr = ""
+                }
+            }
+        })
+        setInterval(() => {
+            vm.arr.push({
+                name: 'yj2',
+                nr: 'scscsdcsd',
+                date: new Date().toLocaleDateString()
+            })
+        }, 3000)
+    </script>
+</body>
+
+</html>

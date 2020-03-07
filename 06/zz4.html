@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data:{
+                open:'我不是组件里的数据'
+            },
+            template:`
+                <div>
+                    <myComponents>
+                        <h1 slot-scope="c">{{ c }}</h1>
+                        <template v-slot:a1="d">{{ d }}</template>  
+                        <span slot="a2">{{ open }}</span>
+                    </myComponents>
+                </div>
+            `,
+            components: {
+                myComponents: {
+                    data(){
+                        return{
+                            open:'我是组件里的'
+                        }
+                    },
+                    template: `
+                    <div>
+                        <h1><slot :q="open"/></h1>
+                        <h2><slot name='a1' :a="open"/></h2>
+                        <h2><slot name='a2'/></h2>
+                    </div>
+                    `
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>
+
+</html>

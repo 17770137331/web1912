@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="email"> {{ getEmails() }}
+        <input type="text" v-model="dd">{{ getSs() }}{{ getSs() }}
+        <div>
+            {{ emailList }} {{ emailList }}
+        </div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                dd2: "",
+                dd: 'edd',
+                email: "",
+                emails: ["@qq.com", "@163.com", "@gmail.com", "@126.com"]
+            },
+            methods: {
+                getEmails() {
+                    console.log(this.dd)
+                    if (!this.email) return [];
+                    return this.emails.map((value) => {
+                        return this.email + value;
+                    })
+                },
+                getSs() {
+                    console.log(this.dd, 'ss')
+                    return 'aa';
+                }
+            },
+            watch: {
+
+            },
+            computed: {
+                emailList() {
+                    console.log(this.dd, 'list')
+                    if (!this.email) return [];
+                    return this.emails.map((value) => {
+                        return this.email + value;
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

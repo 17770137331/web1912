@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .switch {
+            width: 100px;
+            height: 30px;
+            border: 1px solid black;
+        }
+        
+        .switch .btn {
+            width: 50px;
+            height: 30px;
+            background: black;
+            transition: 0.3s linear;
+        }
+        
+        .switch .btn.btn-on {
+            transform: translateX(50px);
+        }
+    </style>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="./index2.js"></script>
+<script src="./indes.js"></script>
+
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    title: [{
+                        title: "账号",
+                        key: "username"
+                    }, {
+                        title: "邮箱",
+                        key: "email"
+                    }, {
+                        title: "手机",
+                        key: "phone"
+                    }, {
+                        title: "地址",
+                        key: "address"
+                    }],
+                    shujv: [{
+                        username: 'jj1',
+                        phone: '123',
+                        email: '@',
+                        address: 'sss'
+                    }, {
+                        username: 'jj2',
+                        phone: '123',
+                        email: '@',
+                        address: 'sdss'
+                    }, {
+                        username: 'jj3',
+                        phone: '123',
+                        email: '@',
+                        address: 'ssds'
+                    }],
+                    open: false
+                }
+
+            },
+            methods: {
+                handleremove(item, index) {
+                    console.log(item, index)
+                    this.shujv.splice(index, 1)
+                },
+                handleselect(sd) {
+                    console.log(sd)
+
+                },
+                chang() {
+                    this.open = !this.open
+                }
+            },
+            template: `
+            <div>
+                {{ open }}
+                <ISwitch @change="chang" :on3="open"/>
+                <Table :colums="title" :datas="shujv" @remove="handleremove" @select="handleselect"/>
+            </div>
+                `
+        })
+    </script>
+</body>
+
+</html>

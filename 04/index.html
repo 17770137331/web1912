@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="obj.aa">
+        <input type="text" v-model="obj.bb">
+        <input type="text" v-model="asd">
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                obj: {
+                    aa: "fff",
+                    bb: "fsfsf"
+                },
+                asd: ""
+            },
+            methods: {
+
+            },
+            watch: {
+                asd: {
+                    handler(a, b) {
+                        console.log(a, b)
+                    }
+                },
+                obj: {
+                    handler(new1, old1) {
+                        console.log(new1.aa, old1.aa)
+                    },
+                    deep: true
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

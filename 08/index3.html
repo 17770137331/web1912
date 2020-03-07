@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <div id="app"></div>
+    <script>
+        Vue.component("Test", {
+            props:{
+                title:String
+            },
+            template: `
+            <div>
+                {{ title }}
+                <slot/>
+            </div>
+            `
+        })
+        //每个组件都有一个渲染函数
+        const vm = new Vue({
+            el: '#app',
+            render(createElement) {
+                console.log(this)
+                
+
+                //创建一个div标签嵌套的内容是123
+                //createElement("div","123")
+                //嵌套创建
+                return createElement("div", [
+
+                    //渲染一个组件
+                    //给标签添加样式 class 事件
+                    createElement("Test", {
+                        style: {
+                            color: "red",
+                            background: "blue"
+                        },
+                        class: "aa bb",
+                        //像组件传递参数
+                        props:{
+                            title:'你好丫！！！'
+                        },
+                        //渲染组件监听事件无效
+                        on: {
+                            click() {
+                                alert("1")
+                                console.log("111111111111111111")
+                            }
+                        }
+                    }, "哈哈！"),
+
+                    createElement("h1", {
+                        style: "color:blue; background:red;",
+                        on: {
+                            click() {
+                                alert("aaaa")
+                            }
+                        }
+                    }, 123),
+
+                    createElement("h1", 123411)
+                ])
+
+
+                //也可以这样
+                // return this.$createElement("Test",{
+                //     props:{
+                //         title:"123313"
+                //     }
+                // },"113323")
+            },
+        })
+    </script>
+</body>
+
+</html>

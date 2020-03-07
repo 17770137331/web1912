@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
+<body>
+    <div id="app">
+        <my-components  :yangshi="open" >
+            <h3 slot="zuming">大组</h3>
+            <template slot="biaoti">
+                <tr>
+                    <th>1111</th>
+                    <th>1111</th>
+                    <th>1111</th>
+                    <th>1111</th>
+                </tr>
+            </template>
+            <template slot="neirong">
+                <tr>
+                    <td>
+                        2452
+                    </td>
+                    <td>
+                        2452
+                    </td>
+                    <td>
+                        2452
+                    </td>
+                    <td>
+                        2452
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        2452
+                    </td>
+                    <td>
+                        2452
+                    </td>
+                    <td>
+                        2452
+                    </td>
+                    <td>
+                        2452
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        2452
+                    </td>
+                    <td>
+                        2452
+                    </td>
+                    <td>
+                        2452
+                    </td>
+                    <td>
+                        2452
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        2452
+                    </td>
+                    <td>
+                        2452
+                    </td>
+                    <td>
+                        2452
+                    </td>
+                    <td>
+                        2452
+                    </td>
+                </tr>
+            </template>
+        </my-components>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                open: ['table-striped','table-bordered','table-hover','table-condensed']
+            },
+            methods: {
+                fn() {
+                    this.open = !this.open
+                }
+            },
+            //注意：用具名插槽是最后在外面套一层<template slot=""></template>
+            components: {
+                myComponents: {
+                    props:{
+                        yangshi:String
+                    },
+                    data() {
+                        return {
+                            data: ''
+                        }
+                    },
+                    template: `                    
+                        <table :class="yangshi" class="table">
+                            <caption>
+                                <slot name="zuming"/>    
+                            </caption>
+                            <thead>                                
+                                <slot name="biaoti"/>                                  
+                            </thead>
+                            <tbody>
+                                <slot name="neirong"/>        
+                            </tbody>
+                        </table>
+                                     
+                    `
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

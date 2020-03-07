@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <div class="" id="app"></div>
+    <script>
+        //一个插件就是一个对象
+        const plugin = {
+            //必须要有一个install方法
+            //要传两个参数1.Vue 就是Vue类的对象 2.options自定义选项
+            install(Vue, options) {
+                console.log(Vue, options)
+                Vue.component("Test", {
+                    template: `
+                        <div>
+                            Test
+                        </div>
+                    `
+                })
+                Vue.filter("Tree", (value, aa) => {
+                    return value + "123";
+                })
+            }
+        }
+        //使用插件
+        //注册插件
+        Vue.use(plugin, 1111111111)
+        // Vue.use()方法的实现原理
+        Vue.iUse = function (pluginObj, options) {
+            if (typeof pluginObj === "object" && typeof pluginObj.install === "function") {
+                pluginObj.install(Vue, options);
+            }
+        }
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                title: "你好呀"
+            },
+            template: `
+                <div>
+                    {{ title | Tree }}
+                    <Test />
+                    <el-button>默认按钮</el-button>
+                </div>
+            `
+        })
+    </script>
+</body>
+
+</html>

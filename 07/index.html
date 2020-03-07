@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<body>
+    <div id="root">
+
+    </div>
+    <script>
+        const Home = {
+            template:`
+                <div>
+                    <h1>Home</h1>
+                </div>
+            `
+        }
+        const About = {
+            template:`
+                <div>
+                    <h1>Abot</h1>
+                </div>
+            `
+        }
+        const News={
+            template:`
+                <div>
+                    <h1>News</h1>
+                </div>
+            `
+        }
+        const vm = new Vue({
+            el: '#root',
+            data() {
+                return {
+                    tabs:['Home','News','About'],
+                    selected:'Home'
+                }
+            },
+            template:`
+                <div class='app'>
+                    <button v-for="tab in tabs" @click="select=tab">{{ tab }}</button>
+                    <component is="seleted">
+                </div>
+            `,
+            components:{
+                Home,
+                About,
+                News
+            }
+        })
+    </script>
+</body>
+
+</html>

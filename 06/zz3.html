@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data:{
+                open:'11'
+            },
+            methods:{
+                fn(){
+                    console.log(this.open)
+                    this.open=this.target.myValue
+                }
+            },
+            template:`
+                <div>
+                    <input type="text" v-model="open" />
+                    <br>
+                    <myComponents :myVa.sync="open"/>
+                </div>
+            `,
+            components: {
+                myComponents: {
+                    props:{
+                        myVa:String
+                    },
+                    data(){
+                        return{
+                            open:this.myVa
+                        }
+                    },
+                    watch:{
+                        open(a,b){
+                            console.log(this)
+                            this.$emit('update:myVa',this.open)
+                        },
+                        myVa(a,b){
+                            this.open=this.myVa                          
+                        }
+                    },
+                    template: `
+                    <div>
+                        <input type="text" v-model="open"/>
+                    </div>
+                    `
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>
+
+</html>

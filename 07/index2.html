@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <div id="app"></div>
+    <script>
+        const bb = {
+            created(){
+                console.log("bb")
+                console.log(this)
+            },
+            beforeDestroy(){
+                console.log("bb组件被销毁了")
+            },
+            template:`
+            <div>
+                <h1>bb</h1>
+            </div>
+            `
+        }
+        const aa = {
+            created(){
+                console.log("aa")
+                console.log(this)
+            },
+            beforeDestroy(){
+                console.log("aa组件别销毁了")
+            },
+            components: {
+                bb
+            },
+            template: `
+            <div>
+                <h1>aa</h1>
+                <input type="text" />
+                <bb/>
+            </div>                      
+            `
+        }
+        
+        const cc = {
+            beforeDestroy(){
+                
+                console.log("cc组件被销毁了")
+            },
+            template:`
+            <div>
+                <input type="text" />
+                <h1>cc</h1>
+            </div>
+            `
+        }
+        const dd1 = {
+            beforeDestroy(){
+                console.log("dd组件被销毁了")
+            },
+            created() {
+                console.log("dd1")
+                this.$on("mousedowm",()=>{
+                    console.log("1111111111111111")
+                })
+                console.log(this);
+                this.$parent.$on("load",()=>{
+                    console.log("load2222222222222")
+                })
+                console.log(this.$parent)
+            },
+            mounted() {
+                this.$emit("mousedowm")
+            },
+            template:`
+            <div>               
+                <h1>dd</h1>
+                <input type="text" />
+            </div>
+            `
+        }
+       
+        const vm = new Vue({
+            el: '#app',
+            data(){
+                return{
+                    shujv:['aa','bb','cc'],
+                    select:'aa',
+                    show:true
+                }
+            },
+            created() {
+                console.log("vm")
+                console.log(this)
+            },
+            mounted(){
+                console.log("mouted")
+                this.$emit("load")
+                console.log(this)
+            },
+            template: `
+            <div class="app">
+                <h1 ref="h1app">app</h1>
+                <button v-for="sj in shujv" @click="select=sj">{{ sj }}</button>
+                <!--被keep-alive包裹起来的组件都不会被销毁-->
+                <keep-alive>
+                    <!--动态组件必须要加一个is属性-->
+                    <!--只要传对应的组件名称就可以把它展示出来-->
+                    <component :is="select" />
+                </keep-alive>
+                <keep-alive>
+                   <dd1 v-if="show" ref="ddr" @click="()=>{}"/>
+                </keep-alive>
+                <button @click="show=!show">切换</button>
+            </div>            
+            `,
+            components:{
+               aa,
+               bb,
+               cc,
+               dd1
+            }
+        })
+    </script>
+</body>
+</html>
