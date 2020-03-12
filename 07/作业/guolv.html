@@ -5,9 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
 <body>
+    <div id="app"></div>
+    <script>
+        Vue.filter("UperCase", (value) => {
+            return value.toUpperCase();
+        })
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    aa: 'AAAAjjfafdklsf',
+                    d: 99999
+                }
+            },
+            filters: {
+                aa(value) {
+                    return value + 1000
+                },
+                bb(value, dd = "ddd") {
+                    return value + dd
+                },
+                ee(value, xx) {
+                    return value + xx
+                }
+            },
+            template: `
+            <div>
+                {{ aa | UperCase | aa | bb | ee(d) }}    
+            </div>
+            `
+        })
+    </script>
 
 </body>
 

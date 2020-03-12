@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<body>
+    <div id="app"></div>
+    <script>
+        const aa = {
+            template: `
+            <div style="border:1px solid; width:300px;">
+                如果你是一个 Browserify 用户同时喜欢使用异步组件，很不幸这个工具的作者明确表示异步加载“并不会被 Browserify 支持”，至少官方不会。Browserify 社区已经找到了一些变通方案，这些方案可能会对已存在的复杂应用有帮助。对于其它的场景，我们推荐直接使用 webpack，以拥有内置的头等异步支持。
+            </div>
+            `
+        }
+        const bb = {
+            template: `
+            <div style="border:1px solid; width:300px;">
+                如你所见，这个工厂函数会收到一个 resolve 回调，这个回调函数会在你从服务器得到组件定义的时候被调用。你也可以调用 reject(reason) 来表示加载失败。这里的 setTimeout 是为了演示用的，如何获取组件取决于你自己。一个推荐的做法是将异步组件和 webpack 的 code-splitting 功能一起配合使用：
+            </div>
+            `
+        }
+        const cc = {
+            template: `
+            <div style="border:1px solid; width:300px;">
+                重新创建动态组件的行为通常是非常有用的，但是在这个案例中，我们更希望那些标签的组件实例能够被在它们第一次被创建的时候缓存下来。为了解决这个问题，我们可以用一个 <keep-alive> 元素将其动态组件包裹起来。
+            </div>
+            `
+        }
+        const vm = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    select: ['aa', 'bb', 'cc'],
+                    name: 'aa'
+                }
+            },
+            components: {
+                aa,
+                bb,
+                cc
+            },
+            template: `
+            <div>
+                 <button v-for="item in select" @click="name=item">{{ item }}</button>
+                 <component :is="name" />
+            </div>
+        `
+        })
+    </script>
+</body>
+
+</html>

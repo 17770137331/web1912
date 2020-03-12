@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        Vue.mixin({
+            data() {
+                return {
+                    aa: 'bb'
+                }
+            },
+        })
+        var myminins = {
+            created() {
+                console.log("jjjj")
+            },
+            data() {
+                return {
+                    cc: 5555
+                }
+            }
+        }
+        var myminins2 = {
+            created() {
+                console.log("bbbbbb")
+            },
+            data: {
+                bb: 'jdddd'
+            }
+        }
+        const vm = new Vue({
+            el: '#app',
+            mixins: [myminins, myminins2],
+            template: `
+            <div>
+               
+                {{ aa }}
+                {{ bb }}
+                {{ cc }}
+            </div>
+            `
+
+        })
+    </script>
+</body>
+
+</html>

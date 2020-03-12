@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<style>
+    ul {
+        /* margin: 0;
+        padding: 0; */
+    }
+    
+    li {
+        /* list-style-type: none; */
+        /* border: 1px solid brown; */
+        /* background-color: cyan; */
+        color: black;
+        width: 70px;
+        /* height: 30px; */
+        line-height: 30px;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div id="app"></div>
+    <script>
+        Vue.component("digui", {
+            props: ['array'],
+            data() {
+                return {
+                    bb: false
+                }
+            },
+            name: "Tree",
+            methods: {
+                fn() {
+                    console.log(event.target)
+                }
+            },
+            template: `
+                <ul>
+                    <li :class="[{'aa':bb}]"  @click="fn" v-for="item in array">
+                        {{ item.title }}
+                        <Tree :array="item.char"/>
+                    </li>
+                    
+                </ul>
+            `
+        })
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    aa: [{
+                        title: '列表1',
+                        char: [{
+                            title: 333,
+                            char: [{
+                                title: 666
+                            }]
+                        }]
+                    }, {
+                        title: '列表2',
+                        char: [{
+                            title: '5555',
+                            char: [{
+                                title: '6666'
+                            }]
+                        }]
+                    }, {
+                        title: '列表3'
+                    }]
+                }
+            },
+            template: `
+            <digui :array="aa"></digui>
+            `
+        })
+    </script>
+</body>
+
+</html>
