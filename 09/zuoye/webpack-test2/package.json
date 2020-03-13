@@ -1,0 +1,11 @@
+{
+  "name": "webpack-test2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "css-loader": "^3.4.2",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.42.0"
+  }
+}
